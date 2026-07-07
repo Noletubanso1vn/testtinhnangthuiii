@@ -3,150 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Món Quà Nhỏ Cho Cá ❤️</title>
+<title>Món Quà Đặc Biệt Cho Cá ❤️</title>
 <style>
     body {
         margin: 0;
-        background: radial-gradient(circle, #0d1117, #010409); /* Màu nền tối để trái tim nổi bật */
+        background: #000; /* Nền đen hoàn toàn để nổi bật ánh sáng hồng */
         overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        color: #f0f0f0;
-        font-family: 'Poppins', sans-serif; /* Bạn có thể đổi phông chữ nếu muốn */
+        font-family: 'Poppins', sans-serif;
     }
 
-    .heart-scene {
+    #heart-container {
         position: relative;
-        width: 300px;
-        height: 300px;
+        width: 400px; /* Kích thước container cho trái tim bự */
+        height: 400px;
         transform-style: preserve-3d;
-        animation: rotateScene 15s infinite linear; /* Trái tim xoay nhẹ 3D */
+        animation: subtlePulse 4s infinite ease-in-out; /* Trái tim bự "thở" nhẹ */
     }
 
-    .heart-scene:hover {
-        animation-play-state: paused; /* Tạm dừng xoay khi di chuột */
-    }
-
-    .heart-scene:hover .heart {
-        transform: scale(1.3); /* Trái tim lớn lên khi di chuột */
-        box-shadow: 0 0 100px rgba(255, 61, 91, 0.8), 0 0 150px rgba(255, 107, 129, 0.6);
-        background: radial-gradient(circle, #ff1a4a, #d40032);
-    }
-
-    .heart-scene:hover #center-text {
-        opacity: 1; /* Hiển thị tên khi di chuột */
-        transform: translate(-50%, -50%) translateZ(10px) scale(1);
-    }
-
-    .heart {
+    /* Tạo hình dạng trái tim bự bằng clip-path */
+    #heart-shape {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle, #ff3d5b, #d40032);
-        border-radius: 50% 50% 0 0;
-        transform-origin: center bottom;
-        box-shadow: 0 0 50px rgba(255, 61, 91, 0.6), 0 0 100px rgba(255, 107, 129, 0.4);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-        animation: pulse 1.5s infinite ease-in-out; /* Hiệu ứng "thở" */
+        background-color: rgba(255, 105, 180, 0.1); /* Màu hồng nhạt làm nền ẩn */
+        clip-path: path('M200,80 C160,20 60,20 60,110 C60,180 200,300 200,300 C200,300 340,180 340,110 C340,20 240,20 200,80 Z');
+        box-shadow: 0 0 50px rgba(255, 20, 147, 0.5); /* Hào quang hồng */
     }
 
-    .heart::before {
+    /* Định nghĩa trái tim nhỏ (particle) */
+    .small-heart {
+        position: absolute;
+        width: 10px; /* Kích thước trái tim nhỏ */
+        height: 10px;
+        background-color: #ff69b4; /* Hồng đậm cho các trái tim nhỏ */
+        border-radius: 50% 50% 0 0;
+        transform: rotate(-45deg);
+        opacity: 0; /* Bắt đầu ẩn */
+        animation: twinkleParticle infinite ease-in-out;
+    }
+
+    .small-heart::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle, #ff3d5b, #d40032);
+        background-color: #ff69b4;
         border-radius: 50% 50% 0 0;
-        transform: translateX(-50%) rotate(-45deg);
-        transform-origin: 100% 100%;
+        transform: translateX(-50%) rotate(0deg);
     }
 
-    .heart::after {
+    .small-heart::after {
         content: '';
         position: absolute;
         top: 0;
-        right: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle, #ff3d5b, #d40032);
+        background-color: #ff69b4;
         border-radius: 50% 50% 0 0;
-        transform: translateX(50%) rotate(45deg);
-        transform-origin: 0 100%;
-    }
-
-    @keyframes pulse {
-        0%, 100% {
-            transform: scale(1) rotateX(20deg);
-        }
-        50% {
-            transform: scale(1.1) rotateX(15deg);
-        }
-    }
-
-    @keyframes rotateScene {
-        0% { transform: rotateY(0deg) rotateX(0deg); }
-        100% { transform: rotateY(360deg) rotateX(360deg); }
+        transform: translateX(50%) rotate(90deg);
     }
 
     #center-text {
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%) translateZ(10px) scale(0.8);
-        font-size: 60px;
+        transform: translate(-50%, -50%) translateZ(20px); /* Nổi lên trên các hạt */
+        font-size: 80px; /* Tên to và rõ */
         font-weight: 700;
-        color: #fff;
-        text-shadow: 0 0 20px #ff007f, 0 0 40px #ff007f;
-        pointer-events: none; /* Tránh text cản trở hiệu ứng di chuột */
-        opacity: 0.7; /* Ẩn bớt để tăng sự tò mò */
-        transition: opacity 0.3s ease, transform 0.3s ease;
+        color: #fff; /* Màu trắng để tương phản */
+        text-shadow: 
+            0 0 10px #ff007f, 
+            0 0 20px #ff007f, 
+            0 0 40px #ff007f, 
+            0 0 60px #ff007f; /* Hào quang hồng rực rỡ */
+        animation: textGlow 2s infinite ease-in-out;
+        pointer-events: none;
     }
 
-    .glitter-particle {
-        position: absolute;
-        width: 3px;
-        height: 3px;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 50%;
-        animation: glitter 1s infinite linear;
+    @keyframes twinkleParticle {
+        0%, 100% {
+            opacity: 0;
+            transform: rotate(-45deg) scale(0.5);
+        }
+        50% {
+            opacity: 1;
+            transform: rotate(-45deg) scale(1) translateZ(5px);
+        }
     }
 
-    @keyframes glitter {
-        0% { transform: translateY(0) scale(1); opacity: 1; }
-        100% { transform: translateY(-50px) scale(0.1); opacity: 0; }
+    @keyframes subtlePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.03); }
+    }
+
+    @keyframes textGlow {
+        0%, 100% {
+            text-shadow: 
+                0 0 10px #ff007f, 
+                0 0 20px #ff007f, 
+                0 0 40px #ff007f;
+        }
+        50% {
+            text-shadow: 
+                0 0 20px #ff007f, 
+                0 0 40px #ff007f, 
+                0 0 60px #ff007f, 
+                0 0 80px #ff007f;
+        }
     }
 
 </style>
 </head>
 <body>
 
-    <div class="heart-scene">
-        <div class="heart"></div>
+    <div id="heart-container">
+        <div id="heart-shape"></div> <!-- Lớp nền hình trái tim -->
         <div id="center-text">Cá</div>
-        <!-- Thêm hiệu ứng lấp lánh (bạn có thể bỏ nếu thấy quá tải) -->
-        <div class="glitter-particle" style="top: 20%; left: 30%; animation-delay: 0.1s;"></div>
-        <div class="glitter-particle" style="top: 50%; left: 10%; animation-delay: 0.3s;"></div>
-        <div class="glitter-particle" style="top: 80%; left: 40%; animation-delay: 0.5s;"></div>
-        <div class="glitter-particle" style="top: 15%; left: 70%; animation-delay: 0.7s;"></div>
-        <div class="glitter-particle" style="top: 60%; left: 90%; animation-delay: 0.9s;"></div>
     </div>
 
     <script>
-        // JS để tạo thêm hiệu ứng lấp lánh một cách ngẫu nhiên
-        const heartScene = document.querySelector('.heart-scene');
-        for (let i = 0; i < 30; i++) {
+        const heartShape = document.getElementById('heart-shape');
+        const numParticles = 800; // Số lượng trái tim nhỏ (tăng lên để bự hơn)
+        const containerWidth = 400;
+        const containerHeight = 400;
+
+        // Hàm kiểm tra xem một điểm có nằm trong hình dạng trái tim hay không
+        function isInHeartShape(x, y) {
+            // Công thức trái tim gần đúng (để phân bổ hạt đẹp hơn)
+            const nx = (x / containerWidth) * 2 - 1; // Chuẩn hóa về [-1, 1]
+            const ny = ((containerHeight - y) / containerHeight) * 2 - 1; // Chuẩn hóa về [-1, 1] (y đảo ngược)
+            
+            // Công thức trái tim: (x^2 + y^2 - 1)^3 - x^2 * y^3 <= 0
+            const val = Math.pow(Math.pow(nx, 2) + Math.pow(ny - 0.5, 2) - 0.8, 3) - Math.pow(nx, 2) * Math.pow(ny - 0.5, 3);
+            return val <= 0;
+        }
+
+        // JS để tạo ngẫu nhiên các trái tim nhỏ bên trong hình dạng trái tim bự
+        for (let i = 0; i < numParticles; i++) {
+            let x, y;
+            // Lặp cho đến khi tìm được một điểm nằm TRONG hình dạng trái tim
+            do {
+                x = Math.random() * containerWidth;
+                y = Math.random() * containerHeight;
+            } while (!isInHeartShape(x, y));
+
             const particle = document.createElement('div');
-            particle.classList.add('glitter-particle');
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() + 's';
-            heartScene.appendChild(particle);
+            particle.classList.add('small-heart');
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            
+            // Tùy chỉnh hiệu ứng nhấp nháy ngẫu nhiên cho từng hạt
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            particle.style.animationDuration = (1.5 + Math.random()) + 's'; // Tốc độ nhấp nháy khác nhau
+            
+            // Thêm một chút chuyển động ngẫu nhiên theo chiều sâu (Z)
+            particle.style.transform += ` translateZ(${Math.random() * 10}px)`;
+
+            heartShape.appendChild(particle);
         }
     </script>
 </body>
